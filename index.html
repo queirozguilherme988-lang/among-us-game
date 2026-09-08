@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Among Us - Game Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Menu Principal -->
+        <div id="mainMenu" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="game-title">AMONG US</h1>
+                <div class="menu-buttons">
+                    <button class="btn btn-play" onclick="startGame()">JOGAR</button>
+                    <button class="btn btn-settings" onclick="toggleSettings()">CONFIGURAÇÕES</button>
+                    <button class="btn btn-credits" onclick="toggleCredits()">CRÉDITOS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Configurações -->
+        <div id="settingsScreen" class="menu-screen hidden">
+            <div class="menu-content">
+                <h2>CONFIGURAÇÕES</h2>
+                <div class="settings-group">
+                    <label>Número de Impostores:</label>
+                    <input type="range" id="impostorCount" min="1" max="3" value="1">
+                    <span id="impostorDisplay">1</span>
+                </div>
+                <div class="settings-group">
+                    <label>Número de Jogadores:</label>
+                    <input type="range" id="playerCount" min="4" max="15" value="8">
+                    <span id="playerDisplay">8</span>
+                </div>
+                <div class="settings-group">
+                    <label>Velocidade de Discussão:</label>
+                    <select id="discussionSpeed">
+                        <option value="30">Rápida (30s)</option>
+                        <option value="60" selected>Normal (60s)</option>
+                        <option value="120">Lenta (120s)</option>
+                    </select>
+                </div>
+                <button class="btn btn-back" onclick="toggleSettings()">VOLTAR</button>
+            </div>
+        </div>
+
+        <!-- Tela de Créditos -->
+        <div id="creditsScreen" class="menu-screen hidden">
+            <div class="menu-content">
+                <h2>CRÉDITOS</h2>
+                <p>Jogo Among Us - Clone Educativo</p>
+                <p>Desenvolvido com HTML5 e JavaScript</p>
+                <p>Baseado no jogo original da Innersloth</p>
+                <button class="btn btn-back" onclick="toggleCredits()">VOLTAR</button>
+            </div>
+        </div>
+
+        <!-- Tela de Seleção de Personagem -->
+        <div id="characterSelect" class="menu-screen hidden">
+            <div class="menu-content">
+                <h2>ESCOLHA SEU PERSONAGEM</h2>
+                <div class="character-grid" id="characterGrid"></div>
+                <button class="btn btn-play" onclick="startGameSession()">COMEÇAR</button>
+                <button class="btn btn-back" onclick="backToMenu()">VOLTAR</button>
+            </div>
+        </div>
+
+        <!-- Tela do Jogo -->
+        <div id="gameScreen" class="game-screen hidden">
+            <div class="hud">
+                <div class="hud-section">
+                    <span>Tarefas: <span id="tasksRemaining">0</span></span>
+                </div>
+                <div class="hud-section">
+                    <span>Tempo: <span id="gameTimer">300</span>s</span>
+                </div>
+                <div class="hud-section">
+                    <span id="playerRole">Tripulante</span>
+                </div>
+            </div>
+
+            <canvas id="gameCanvas"></canvas>
+
+            <div class="game-controls">
+                <button class="control-btn" id="chatBtn" onclick="openChat()">💬 CHAT</button>
+                <button class="control-btn" id="reportBtn" onclick="reportBody()" style="display:none;">📢 REPORTAR</button>
+                <button class="control-btn" id="killBtn" onclick="killPlayer()" style="display:none;">⚔️ MATAR</button>
+                <button class="control-btn" id="taskBtn" onclick="doTask()">📋 TAREFA</button>
+            </div>
+        </div>
+
+        <!-- Chat/Discussão -->
+        <div id="chatScreen" class="chat-screen hidden">
+            <div class="chat-content">
+                <h3>DISCUSSÃO</h3>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+                    <button onclick="sendMessage()">Enviar</button>
+                </div>
+                <button class="btn btn-close" onclick="closeChat()">Fechar</button>
+            </div>
+        </div>
+
+        <!-- Tela de Votação -->
+        <div id="votingScreen" class="voting-screen hidden">
+            <div class="voting-content">
+                <h3>VOTAÇÃO</h3>
+                <div class="voting-options" id="votingOptions"></div>
+                <button class="btn" onclick="skipVote()">Pular</button>
+                <button class="btn btn-close" onclick="closeVoting()">Fechar</button>
+            </div>
+        </div>
+
+        <!-- Tela de Resultado -->
+        <div id="resultScreen" class="menu-screen hidden">
+            <div class="menu-content">
+                <h2 id="resultTitle">TRIPULANTES VENCERAM!</h2>
+                <div id="resultDetails"></div>
+                <button class="btn btn-play" onclick="returnToMenu()">VOLTAR AO MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="player.js"></script>
+    <script src="game.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>
